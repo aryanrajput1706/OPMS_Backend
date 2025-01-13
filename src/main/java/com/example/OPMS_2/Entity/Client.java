@@ -11,8 +11,36 @@ public class Client {
     private Long clientId;
     private String clientName;
 
+    private String clientEmail;
+    private String clientPhone;
+    private String clientAddress;
+
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Position> positions;
+
+    public String getClientEmail() {
+        return clientEmail;
+    }
+
+    public void setClientEmail(String clientEmail) {
+        this.clientEmail = clientEmail;
+    }
+
+    public String getClientPhone() {
+        return clientPhone;
+    }
+
+    public void setClientPhone(String clientPhone) {
+        this.clientPhone = clientPhone;
+    }
+
+    public String getClientAddress() {
+        return clientAddress;
+    }
+
+    public void setClientAddress(String clientAddress) {
+        this.clientAddress = clientAddress;
+    }
 
     public Long getClientId() {
         return clientId;

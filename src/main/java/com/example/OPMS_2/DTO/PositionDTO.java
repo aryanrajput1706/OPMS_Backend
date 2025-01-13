@@ -1,11 +1,6 @@
 package com.example.OPMS_2.DTO;
 
 import com.example.OPMS_2.Entity.Client;
-import com.example.OPMS_2.Entity.Recruiter;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,7 +16,7 @@ public class PositionDTO {
     private LocalDate endDate;
 
     private List<Long> recruiters;
-    private Client client;
+    private Long clientId;
 
     public Long getPositionId() {
         return positionId;
@@ -95,11 +90,11 @@ public class PositionDTO {
         this.recruiters = recruiters;
     }
 
-    public Client getClient() {
-        return client;
+    public Long getClientId() {
+        return clientId;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
 }
