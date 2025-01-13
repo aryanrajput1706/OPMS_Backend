@@ -1,8 +1,9 @@
 package com.example.OPMS_2.DTO;
 
+import com.example.OPMS_2.Entity.Position;
 import com.example.OPMS_2.Entity.Recruiter;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+
+import java.util.List;
 
 public class EmployeeDTO {
     Long empId;
@@ -13,7 +14,8 @@ public class EmployeeDTO {
     Long experience;
     String stage;
     String feedback;
-    private Recruiter recruiter;
+    private Long recruiterId;
+    private Long positionId;
 
     public Long getEmpId() {
         return empId;
@@ -71,11 +73,19 @@ public class EmployeeDTO {
         this.feedback = feedback;
     }
 
-    public Recruiter getRecruiter() {
-        return recruiter;
+    public Long getRecruiterId() {
+        return recruiterId;
     }
 
-    public void setRecruiter(Recruiter recruiter) {
-        this.recruiter = recruiter;
+    public void setRecruiterId(Long recruiterId) {
+        this.recruiterId = recruiterId;
+    }
+
+    public Long getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(Long positionId) {
+        this.positionId = positionId;
     }
 }
