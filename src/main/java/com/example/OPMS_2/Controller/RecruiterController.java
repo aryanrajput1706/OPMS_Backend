@@ -18,25 +18,25 @@ import java.util.List;
 public class RecruiterController {
     @Autowired
     RecruiterService recruiterService;
-    @GetMapping
+    @GetMapping("/employee")
     public List<Employee> getAllEmployee()
     {
         return recruiterService.getAllEmployee();
     }
-    @PostMapping
+    @PostMapping("/employee")
     public ResponseEntity<Employee> addNewPosition(@RequestBody EmployeeDTO employeeDTO)
     {
         Employee savedEmployee=recruiterService.saveEmployee(employeeDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEmployee);
 
     }
-    @PutMapping
+    @PutMapping("/employee")
     public  ResponseEntity<Employee>updateEmployee(@PathVariable Long empId,@RequestBody EmployeeDTO employeeDTO)
     {
         Employee employee=recruiterService.updateEmployee(empId,employeeDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    @DeleteMapping
+    @DeleteMapping("/employee")
     public ResponseEntity<Employee> deleteMapping(@PathVariable Long empId)
     {
         boolean isDeleted=recruiterService.deleteEmployee(empId);
