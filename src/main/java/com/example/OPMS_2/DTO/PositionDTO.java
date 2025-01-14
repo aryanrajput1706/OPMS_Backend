@@ -14,7 +14,6 @@ public class PositionDTO {
     private Long experience;
     private LocalDate startDate;
     private LocalDate endDate;
-
     private List<Long> recruiters;
     private Long clientId;
 
