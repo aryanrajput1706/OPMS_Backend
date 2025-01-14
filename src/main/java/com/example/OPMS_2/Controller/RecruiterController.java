@@ -19,31 +19,31 @@ public class RecruiterController {
     @Autowired
     RecruiterService recruiterService;
     @GetMapping("/employee")
-    public List<Employee> getAllEmployee()
+    public List<EmployeeDTO> getAllEmployee()
     {
         return recruiterService.getAllEmployee();
     }
     @PostMapping("/employee")
     public ResponseEntity<Employee> addNewPosition(@RequestBody EmployeeDTO employeeDTO)
     {
-        Employee savedEmployee=recruiterService.saveEmployee(employeeDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedEmployee);
+       Employee employee= recruiterService.saveEmployee(employeeDTO);
+        return  ResponseEntity.status(HttpStatus.CREATED).body(employee);
 
     }
-    @PutMapping("/employee")
+    @PutMapping("/employee/{id}")
     public  ResponseEntity<Employee>updateEmployee(@PathVariable Long empId,@RequestBody EmployeeDTO employeeDTO)
     {
         Employee employee=recruiterService.updateEmployee(empId,employeeDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    @DeleteMapping("/employee")
+    @DeleteMapping("/employee/{id}")
     public ResponseEntity<Employee> deleteMapping(@PathVariable Long empId)
     {
         boolean isDeleted=recruiterService.deleteEmployee(empId);
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/view-all")
-    public List<Recruiter> getAllRecruiter(){
+    public List<RecruiterDTO> getAllRecruiter(){
         return recruiterService.getAllRecruiter();
     }
     @PostMapping
@@ -53,12 +53,12 @@ public class RecruiterController {
         return ResponseEntity.status(HttpStatus.CREATED).body(Newrecruiter);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<Recruiter> updateRecruiter(@PathVariable Long recruiterId,@RequestBody RecruiterDTO recruiterDTO){
         Recruiter recruiter=recruiterService.updateRecruiter(recruiterId,recruiterDTO);
         return ResponseEntity.ok(recruiter);
     }
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Recruiter> deleteRecruiter(@PathVariable Long recruiterId){
         boolean isDeleted= recruiterService.deleteRecruiter(recruiterId);
         return ResponseEntity.noContent().build(); //Return 204 No Content if deleted successfully

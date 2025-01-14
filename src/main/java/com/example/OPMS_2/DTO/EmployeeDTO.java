@@ -17,6 +17,7 @@ public class EmployeeDTO {
     private Long recruiterId;
     private Long positionId;
 
+
     public Long getRecruiterId() {
         return recruiterId;
     }
@@ -89,11 +90,5 @@ public class EmployeeDTO {
         this.feedback = feedback;
     }
 
-    public Recruiter getRecruiter() {
-        return recruiter;
-    }
 
-    public void setRecruiter(Recruiter recruiter) {
-        this.recruiter = recruiter;
-    }
 }

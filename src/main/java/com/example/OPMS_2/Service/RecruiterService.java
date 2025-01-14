@@ -13,9 +13,11 @@ import com.example.OPMS_2.Repository.EmployeeRepo;
 import com.example.OPMS_2.Repository.PositionRepo;
 import com.example.OPMS_2.Repository.RecruiterRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class RecruiterService {
     @Autowired
     private RecruiterRepo recruiterRepo;
@@ -26,15 +28,40 @@ public class RecruiterService {
 
     @Autowired
     private PositionRepo positionRepo;
-    @Autowired
+
     private RecruiterDTO recruiterDTO;
 
-    public List<Recruiter> getAllRecruiter() {
-        return recruiterRepo.findAll();
+    public List<RecruiterDTO> getAllRecruiter() {
+        List<Recruiter>allRecruiterList=recruiterRepo.findAll();
+        List<RecruiterDTO>allRecruiterDtoList=new ArrayList<>();
+        for(Recruiter r:allRecruiterList)
+        {
+            RecruiterDTO recruiterDTO1=new RecruiterDTO();
+            recruiterDTO1.setRecruiterId(r.getRecruiterId());
+            recruiterDTO1.setRecruiterName(r.getRecruiterName());
+            recruiterDTO1.setContactNo(r.getContactNo());
+            recruiterDTO1.setEmailId(r.getEmailId());
+            allRecruiterDtoList.add(recruiterDTO1);
+        }
+        return allRecruiterDtoList;
     }
 
-    public List<Employee> getAllEmployee() {
-        return employeeRepo.findAll();
+    public List<EmployeeDTO> getAllEmployee() {
+        List<Employee>allEmployeeList=employeeRepo.findAll();
+        List<EmployeeDTO>allEmployeeDtoList=new ArrayList<>();
+        for(Employee e:allEmployeeList)
+        {
+            EmployeeDTO employeeDTO=new EmployeeDTO();
+            employeeDTO.setEmail(e.getEmail());
+            employeeDTO.setEmpName(e.getEmpName());
+            employeeDTO.setEmpId(e.getEmpId());
+            employeeDTO.setStage(e.getStage());
+            employeeDTO.setTech(e.getTech());
+            employeeDTO.setExperience(e.getExperience());
+            employeeDTO.setFeedback(e.getFeedback());
+            allEmployeeDtoList.add(employeeDTO);
+        }
+        return allEmployeeDtoList;
     }
 
     public Employee saveEmployee(EmployeeDTO employeeDTO) {

@@ -1,7 +1,6 @@
 package com.example.OPMS_2.DTO;
 
 import com.example.OPMS_2.Entity.Client;
-import com.example.OPMS_2.Entity.Employee;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,12 +14,8 @@ public class PositionDTO {
     private Long experience;
     private LocalDate startDate;
     private LocalDate endDate;
-
-
-
-    private static Employee empName;
     private List<Long> recruiters;
-    private Client client;
+    private Long clientId;
 
     public Long getPositionId() {
         return positionId;
@@ -54,17 +49,17 @@ public class PositionDTO {
         this.cost = cost;
     }
 
-//    public static String getTech() {
-//        return tech;
-//    }
+    public String getTech() {
+        return tech;
+    }
 
     public void setTech(String tech) {
         this.tech = tech;
     }
 
-//    public static Long getExperience() {
-//        return experience;
-//    }
+    public Long getExperience() {
+        return experience;
+    }
 
     public void setExperience(Long experience) {
         this.experience = experience;
@@ -94,5 +89,11 @@ public class PositionDTO {
         this.recruiters = recruiters;
     }
 
+    public Long getClientId() {
+        return clientId;
+    }
 
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
 }
