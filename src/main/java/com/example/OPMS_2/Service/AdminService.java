@@ -3,6 +3,7 @@ package com.example.OPMS_2.Service;
 import com.example.OPMS_2.DTO.ClientDTO;
 import com.example.OPMS_2.DTO.EmployeeDTO;
 import com.example.OPMS_2.DTO.PositionDTO;
+import com.example.OPMS_2.DTO.RecruiterDTO;
 import com.example.OPMS_2.Entity.Client;
 import com.example.OPMS_2.Entity.Employee;
 import com.example.OPMS_2.Entity.Position;
@@ -185,13 +186,79 @@ public class AdminService {
             for(Position position : client.getPositions()){
                 positions.add(position.getPositionId());
             }
-
             clientDTO.setPositions(positions);
-
-
             clientDTOList.add(clientDTO);
         }
 
         return clientDTOList;
     }
+
+    public List<RecruiterDTO> getRecruiter() {
+        List<Recruiter> recruiters = recruiterRepo.findAll();
+        List<RecruiterDTO> recruiterDTOList = new ArrayList<>();
+
+        for(Recruiter recruiter : recruiters){
+            RecruiterDTO recruiterDTO = new RecruiterDTO();
+
+            recruiterDTO.setRecruiterId(recruiter.getRecruiterId());
+            recruiterDTO.setRecruiterName(recruiter.getRecruiterName());
+            recruiterDTO.setContactNo(recruiter.getContactNo());
+            recruiterDTO.setEmailId(recruiter.getEmailId());
+            recruiterDTO.setContactNo(recruiter.getContactNo());
+
+            List<Long> employeeIdList = new ArrayList<>();
+
+            for(Employee emp : recruiter.getEmployees()){
+                employeeIdList.add(emp.getEmpId());
+            }
+
+            recruiterDTO.setEmployees(employeeIdList);
+
+            recruiterDTOList.add(recruiterDTO);
+        }
+        return recruiterDTOList;
+    }
+
+    public RecruiterDTO getRecruiterById(Long id) {
+        Recruiter recruiter = recruiterRepo.findById(id).orElse(null);
+        RecruiterDTO recruiterDTO = new RecruiterDTO();
+
+        if(recruiter != null){
+            recruiterDTO.setRecruiterId(recruiter.getRecruiterId());
+            recruiterDTO.setRecruiterName(recruiter.getRecruiterName());
+            recruiterDTO.setEmailId(recruiter.getEmailId());
+            recruiterDTO.setContactNo(recruiter.getContactNo());
+
+            List<Long> employeeId = new ArrayList<>();
+
+            for(Employee employee : recruiter.getEmployees()){
+                employeeId.add(employee.getEmpId());
+            }
+
+            recruiterDTO.setEmployees(employeeId);
+        }
+        return recruiterDTO;
+    }
+
+    public RecruiterDTO addRecruiter(RecruiterDTO recruiterDTO) {
+        Recruiter recruiter = new Recruiter();
+
+        recruiter.setRecruiterName(recruiterDTO.getRecruiterName());
+        recruiter.setContactNo(recruiterDTO.getContactNo());
+        recruiter.setEmailId(recruiterDTO.getEmailId());
+        recruiter.setPassword(recruiterDTO.getPassword());
+        recruiter.setRecruiterId(recruiterDTO.getRecruiterId());
+
+        List<Long> employeeId = recruiterDTO.getEmployees();
+        List<Employee> employeeList = new ArrayList<>();
+
+        for(Long empId : employeeId){
+            employeeList.add(employeeRepo.findById(empId).orElse(null));
+        }
+
+        recruiter.setEmployees(employeeList);
+
+        return recruiterDTO;
+    }
+
 }
