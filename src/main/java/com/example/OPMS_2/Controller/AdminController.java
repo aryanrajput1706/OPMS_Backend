@@ -3,15 +3,14 @@ package com.example.OPMS_2.Controller;
 import com.example.OPMS_2.DTO.ClientDTO;
 import com.example.OPMS_2.DTO.EmployeeDTO;
 import com.example.OPMS_2.DTO.RecruiterDTO;
-import com.example.OPMS_2.Entity.Client;
-import com.example.OPMS_2.Entity.Employee;
-import com.example.OPMS_2.Entity.Position;
 import com.example.OPMS_2.DTO.PositionDTO;
-import com.example.OPMS_2.Entity.Recruiter;
+import com.example.OPMS_2.Entity.Client;
+import com.example.OPMS_2.Entity.Position;
 import com.example.OPMS_2.Service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -73,6 +72,11 @@ public class AdminController {
         return adminService.getEmployee();
     }
 
+    @GetMapping("/employee/{id}")
+    public EmployeeDTO getEmployeeById(@PathVariable Long id){
+        return adminService.getEmployeeById(id);
+    }
+
     //Clients
 
     @GetMapping("/client-count")
@@ -83,6 +87,31 @@ public class AdminController {
     @GetMapping("/client")
     public List<ClientDTO> getClient(){
         return adminService.getClient();
+    }
+
+    @GetMapping("/client/{id}")
+    public ClientDTO getClientById(@PathVariable Long id){
+        return adminService.getClientById(id);
+    }
+
+    @PostMapping("/add-client")
+    public ClientDTO addClient(@RequestBody ClientDTO clientDTO){
+        return adminService.addClient(clientDTO);
+    }
+
+    @PutMapping("/update-client")
+    public ClientDTO updateClient(@RequestBody ClientDTO clientDTO){
+        return adminService.updateClient(clientDTO);
+    }
+
+    @DeleteMapping("/client/{id}")
+    public String deleteClient(@PathVariable Long id){
+        try{
+            adminService.deleteClient(id);
+            return "Position Deleted Successfully";
+        } catch (Exception e) {
+            return "Error in Deletion";
+        }
     }
 
     //RecruitersAPI
@@ -102,7 +131,19 @@ public class AdminController {
         return adminService.addRecruiter(recruiterDTO);
     }
 
+    @PutMapping("/update-recruiter")
+    public RecruiterDTO updateRecruiter(@RequestBody RecruiterDTO recruiterDTO){
+        return adminService.updateRecruiter(recruiterDTO);
+    }
 
-
+    @DeleteMapping("/recruiter/{id}")
+    public String updateRecruiter(@PathVariable Long id){
+        try{
+            adminService.deleteRecruiter(id);
+            return "Position Deleted Successfully";
+        } catch (Exception e) {
+            return "Error in Deletion";
+        }
+    }
 
 }

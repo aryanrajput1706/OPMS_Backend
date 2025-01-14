@@ -168,6 +168,25 @@ public class AdminService {
         return employeeResponseList;
     }
 
+    public EmployeeDTO getEmployeeById(Long id) {
+        Employee employee = employeeRepo.findById(id).orElseThrow(()-> new RuntimeException("Employee not found"));
+
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+
+        employeeDTO.setEmpName(employee.getEmpName());
+        employeeDTO.setEmail(employee.getEmail());
+        employeeDTO.setEmpId(employee.getEmpId());
+        employeeDTO.setExperience(employee.getExperience());
+        employeeDTO.setTech(employee.getTech());
+        employeeDTO.setFeedback(employee.getFeedback());
+        employeeDTO.setStage(employee.getStage());
+        employeeDTO.setRecruiterId(employee.getRecruiter().getRecruiterId());
+        employeeDTO.setPositionId(employee.getPosition().getPositionId());
+
+        return employeeDTO;
+    }
+
+
     public List<ClientDTO> getClient() {
         List<Client> clientList = new ArrayList<Client>();
         List<ClientDTO> clientDTOList = new ArrayList<>();
@@ -191,6 +210,26 @@ public class AdminService {
         }
 
         return clientDTOList;
+    }
+
+    public ClientDTO getClientById(Long clientId) {
+        ClientDTO clientDTO = new ClientDTO();
+        Client client = clientRepo.findById(clientId).orElseThrow(()-> new RuntimeException("Client doesn't exist"));
+
+        List<Long> positions = new ArrayList<>();
+
+        clientDTO.setClientId(client.getClientId());
+        clientDTO.setClientEmail(client.getClientEmail());
+        clientDTO.setClientPhone(client.getClientPhone());
+        clientDTO.setClientName(client.getClientName());
+        clientDTO.setClientAddress(client.getClientAddress());
+
+        for(Position position : client.getPositions()){
+            positions.add(position.getPositionId());
+        }
+        clientDTO.setPositions(positions);
+
+        return clientDTO;
     }
 
     public List<RecruiterDTO> getRecruiter() {
@@ -258,7 +297,90 @@ public class AdminService {
 
         recruiter.setEmployees(employeeList);
 
+        recruiterRepo.save(recruiter);
+
         return recruiterDTO;
+    }
+
+    public RecruiterDTO updateRecruiter(RecruiterDTO recruiterDTO) {
+        Recruiter existingRecruiter = recruiterRepo.findById(recruiterDTO.getRecruiterId()).orElseThrow(()-> new RuntimeException("Recruiter not found"));
+
+        existingRecruiter.setRecruiterName(recruiterDTO.getRecruiterName());
+        existingRecruiter.setContactNo(recruiterDTO.getContactNo());
+        existingRecruiter.setEmailId(recruiterDTO.getEmailId());
+        existingRecruiter.setPassword(recruiterDTO.getPassword());
+        existingRecruiter.setRecruiterId(recruiterDTO.getRecruiterId());
+
+        List<Long> employeeId = recruiterDTO.getEmployees();
+        List<Employee> employeeList = new ArrayList<>();
+
+        for(Long empId : employeeId){
+            employeeList.add(employeeRepo.findById(empId).orElse(null));
+        }
+
+        existingRecruiter.setEmployees(employeeList);
+
+        recruiterRepo.save(existingRecruiter);
+
+        return recruiterDTO;
+    }
+
+    public void deleteRecruiter(Long id) {
+        Recruiter recruiter = recruiterRepo.findById(id).orElse(null);
+
+        if(recruiter != null)
+            recruiterRepo.delete(recruiter);
+    }
+
+    public ClientDTO addClient(ClientDTO clientDTO) {
+        Client newClient = new Client();
+
+        newClient.setClientId(clientDTO.getClientId());
+        newClient.setClientName(clientDTO.getClientName());
+        newClient.setClientEmail(clientDTO.getClientEmail());
+        newClient.setClientAddress(clientDTO.getClientAddress());
+        newClient.setClientPhone(clientDTO.getClientPhone());
+
+        List<Position> positions = new ArrayList<>();
+
+        for(Long positionId : clientDTO.getPositions()){
+            positions.add(positionRepo.findById(positionId).orElse(null));
+        }
+
+        newClient.setPositions(positions);
+
+        clientRepo.save(newClient);
+
+        return clientDTO;
+    }
+
+    public ClientDTO updateClient(ClientDTO clientDTO) {
+        Client existingClient = clientRepo.findById(clientDTO.getClientId()).orElse(new Client());
+
+        existingClient.setClientId(clientDTO.getClientId());
+        existingClient.setClientName(clientDTO.getClientName());
+        existingClient.setClientEmail(clientDTO.getClientEmail());
+        existingClient.setClientAddress(clientDTO.getClientAddress());
+        existingClient.setClientPhone(clientDTO.getClientPhone());
+
+        List<Position> positions = new ArrayList<>();
+
+        for(Long positionId : clientDTO.getPositions()){
+            positions.add(positionRepo.findById(positionId).orElse(null));
+        }
+
+        existingClient.setPositions(positions);
+
+        clientRepo.save(existingClient);
+
+        return clientDTO;
+    }
+
+    public void deleteClient(Long id) {
+        Client client = clientRepo.findById(id).orElse(null);
+
+        if(client != null)
+            clientRepo.delete(client);
     }
 
 }
