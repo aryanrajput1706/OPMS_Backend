@@ -16,13 +16,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/recruiter")
 public class RecruiterController {
-     @Autowired
+    @Autowired
     RecruiterService recruiterService;
-     @GetMapping
-     public List<Employee> getAllEmployee()
-     {
-       return recruiterService.getAllEmployee();
-     }
+    @GetMapping
+    public List<Employee> getAllEmployee()
+    {
+        return recruiterService.getAllEmployee();
+    }
     @PostMapping
     public ResponseEntity<Employee> addNewPosition(@RequestBody EmployeeDTO employeeDTO)
     {
@@ -49,19 +49,19 @@ public class RecruiterController {
     @PostMapping
     public ResponseEntity<Recruiter> addRecruiter(@RequestBody RecruiterDTO recruiterDTO)
     {
-       Recruiter Newrecruiter=recruiterService.addRecruiter(recruiterDTO);
-       return ResponseEntity.status(HttpStatus.CREATED).body(Newrecruiter);
+        Recruiter Newrecruiter=recruiterService.addRecruiter(recruiterDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Newrecruiter);
     }
 
     @PutMapping
     public ResponseEntity<Recruiter> updateRecruiter(@PathVariable Long recruiterId,@RequestBody RecruiterDTO recruiterDTO){
-         Recruiter recruiter=recruiterService.updateRecruiter(recruiterId,recruiterDTO);
-         return ResponseEntity.ok(recruiter);
+        Recruiter recruiter=recruiterService.updateRecruiter(recruiterId,recruiterDTO);
+        return ResponseEntity.ok(recruiter);
     }
     @DeleteMapping
     public ResponseEntity<Recruiter> deleteRecruiter(@PathVariable Long recruiterId){
-         boolean isDeleted= recruiterService.deleteRecruiter(recruiterId);
-         return ResponseEntity.noContent().build(); //Return 204 No Content if deleted successfully
+        boolean isDeleted= recruiterService.deleteRecruiter(recruiterId);
+        return ResponseEntity.noContent().build(); //Return 204 No Content if deleted successfully
     }
 
 }
