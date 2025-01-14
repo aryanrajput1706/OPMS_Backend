@@ -1,26 +1,15 @@
-package com.example.OPMS_2.Entity;
-
-import jakarta.persistence.*;
+package com.example.OPMS_2.DTO;
 
 import java.util.List;
 
-@Entity
-public class Recruiter {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class RecruiterDTO {
     private Long recruiterId;
     private String recruiterName;
     private String emailId;
     private String password;
     private Long contactNo;
-    private String role;
 
-    @OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL)
-    private List<Employee> employees;
-
-    @ManyToOne
-    @JoinColumn(name = "position_id")
-    private Position position;
+    private List<Long> employees;
 
     public Long getRecruiterId() {
         return recruiterId;
@@ -62,19 +51,11 @@ public class Recruiter {
         this.contactNo = contactNo;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public List<Employee> getEmployees() {
+    public List<Long> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(List<Employee> employees) {
+    public void setEmployees(List<Long> employees) {
         this.employees = employees;
     }
 }

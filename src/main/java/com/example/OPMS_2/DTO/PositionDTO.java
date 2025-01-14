@@ -1,14 +1,11 @@
-package com.example.OPMS_2.Entity;
+package com.example.OPMS_2.DTO;
 
-import jakarta.persistence.*;
+import com.example.OPMS_2.Entity.Client;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
-public class Position {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PositionDTO {
     private Long positionId;
     private Long count;
     private Long filled;
@@ -17,13 +14,8 @@ public class Position {
     private Long experience;
     private LocalDate startDate;
     private LocalDate endDate;
-
-    @OneToMany(mappedBy = "position", cascade = CascadeType.ALL)
-    private List<Recruiter> recruiters;
-
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
+    private List<Long> recruiters;
+    private Long clientId;
 
     public Long getPositionId() {
         return positionId;
@@ -89,19 +81,19 @@ public class Position {
         this.endDate = endDate;
     }
 
-    public List<Recruiter> getRecruiters() {
+    public List<Long> getRecruiters() {
         return recruiters;
     }
 
-    public void setRecruiters(List<Recruiter> recruiters) {
+    public void setRecruiters(List<Long> recruiters) {
         this.recruiters = recruiters;
     }
 
-    public Client getClient() {
-        return client;
+    public Long getClientId() {
+        return clientId;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
 }

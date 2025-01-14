@@ -1,35 +1,37 @@
-package com.example.OPMS_2.Entity;
+package com.example.OPMS_2.DTO;
 
-import com.example.OPMS_2.DTO.PositionDTO;
-import jakarta.persistence.*;
+import com.example.OPMS_2.Entity.Client;
+import com.example.OPMS_2.Entity.Recruiter;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
-@Entity
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class EmployeeDTO {
     Long empId;
 
     String empName;
     String email;
     String tech;
-    Long  experience;
+    Long experience;
     String stage;
     String feedback;
+    private Long recruiterId;
+    private Long positionId;
 
-    @ManyToOne
-    @JoinColumn(name = "position_id")
-    private Position position;
 
-    @ManyToOne
-    @JoinColumn(name = "recruiter_id")
-    private Recruiter recruiter;
-
-    public Position getPosition() {
-        return position;
+    public Long getRecruiterId() {
+        return recruiterId;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setRecruiterId(Long recruiterId) {
+        this.recruiterId = recruiterId;
+    }
+
+    public Long getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(Long positionId) {
+        this.positionId = positionId;
     }
 
     public Long getEmpId() {
@@ -88,11 +90,5 @@ public class Employee {
         this.feedback = feedback;
     }
 
-    public Recruiter getRecruiter() {
-        return recruiter;
-    }
 
-    public void setRecruiter(Recruiter recruiter) {
-        this.recruiter = recruiter;
-    }
 }
