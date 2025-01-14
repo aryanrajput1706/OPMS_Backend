@@ -26,14 +26,14 @@ public class AdminController {
     }
 
     @PostMapping("/add")
-    public Position addPosition(@RequestBody PositionDTO positionDTO){
-        Position newPosition = adminService.addPosition(positionDTO);
-        return newPosition;
+    public PositionDTO addPosition(@RequestBody PositionDTO positionDTO){
+        PositionDTO newPositionDTO = adminService.addPosition(positionDTO);
+        return newPositionDTO;
     }
 
     @PutMapping("/position")
-    public Position updatePosition(@RequestBody PositionDTO positionDTO){
-        Position updatedPosition = adminService.updatePosition(positionDTO);
+    public PositionDTO updatePosition(@RequestBody PositionDTO positionDTO){
+        PositionDTO updatedPosition = adminService.updatePosition(positionDTO);
         return updatedPosition;
     }
 

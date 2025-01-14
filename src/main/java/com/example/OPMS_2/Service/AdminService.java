@@ -64,7 +64,7 @@ public class AdminService {
     }
 
 
-    public Position addPosition(PositionDTO positionDTO) {
+    public PositionDTO addPosition(PositionDTO positionDTO) {
         Position newPosition = new Position();
         List<Recruiter> recruiters = new ArrayList<>();
         Client client = clientRepo.findById(positionDTO.getClientId()).orElse(null);
@@ -72,6 +72,7 @@ public class AdminService {
         newPosition.setClient(client);
         newPosition.setTech(positionDTO.getTech());
         newPosition.setExperience(positionDTO.getExperience());
+        newPosition.setCost(positionDTO.getCost());
         newPosition.setCount(positionDTO.getCount());
         newPosition.setFilled(positionDTO.getFilled());
         newPosition.setStartDate(positionDTO.getStartDate());
@@ -84,10 +85,10 @@ public class AdminService {
 
         newPosition.setRecruiters(recruiters);
         positionRepo.save(newPosition);
-        return newPosition;
+        return positionDTO;
     }
 
-    public Position updatePosition(PositionDTO positionDTO) {
+    public PositionDTO updatePosition(PositionDTO positionDTO) {
         Position existingPosition = positionRepo.findById(positionDTO.getPositionId()).orElse(new Position());
         List<Recruiter> recruiters = new ArrayList<>();
         Client client = clientRepo.findById(positionDTO.getClientId()).orElse(null);
@@ -109,7 +110,7 @@ public class AdminService {
 
         positionRepo.save(existingPosition);
 
-        return existingPosition;
+        return positionDTO;
     }
 
     public void deletePosition(Long id) {
@@ -173,12 +174,20 @@ public class AdminService {
 
         for(Client client : clientList){
             ClientDTO clientDTO = new ClientDTO();
+            List<Long> positions = new ArrayList<>();
 
             clientDTO.setClientId(client.getClientId());
             clientDTO.setClientEmail(client.getClientEmail());
             clientDTO.setClientPhone(client.getClientPhone());
             clientDTO.setClientName(client.getClientName());
             clientDTO.setClientAddress(client.getClientAddress());
+
+            for(Position position : client.getPositions()){
+                positions.add(position.getPositionId());
+            }
+
+            clientDTO.setPositions(positions);
+
 
             clientDTOList.add(clientDTO);
         }
