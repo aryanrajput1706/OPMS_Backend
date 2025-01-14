@@ -1,5 +1,6 @@
 package com.example.OPMS_2.Entity;
 
+import com.example.OPMS_2.DTO.PositionDTO;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,16 +9,20 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long empId;
 
-    private String empName;
-    private String email;
-    private String tech;
-    private Long experience;
-    private String stage;
-    private String feedback;
+    String empName;
+    String email;
+    String tech;
+    Long  experience;
+    String stage;
+    String feedback;
 
     @ManyToOne
     @JoinColumn(name = "position_id")
     private Position position;
+
+    @ManyToOne
+    @JoinColumn(name = "recruiter_id")
+    private Recruiter recruiter;
 
     public Position getPosition() {
         return position;
@@ -26,10 +31,6 @@ public class Employee {
     public void setPosition(Position position) {
         this.position = position;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "recruiter_id")
-    private Recruiter recruiter;
 
     public Long getEmpId() {
         return empId;
