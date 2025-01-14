@@ -71,7 +71,12 @@ public class RecruiterService {
         emp.setEmpName(employeeDTO.getEmpName());
         emp.setTech(employeeDTO.getTech());
         emp.setExperience(employeeDTO.getExperience());
+        emp.setEmail(employeeDTO.getEmail());
+        emp.setStage(employeeDTO.getStage());
+        emp.setFeedback(employeeDTO.getFeedback());
+        if(position!=null)
         emp.setPosition(position);
+        if(recruiter!=null)
         emp.setRecruiter(recruiter);
         return employeeRepo.save(emp);
         //update , delete employee

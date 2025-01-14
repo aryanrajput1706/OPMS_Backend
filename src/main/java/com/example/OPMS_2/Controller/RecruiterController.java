@@ -30,13 +30,13 @@ public class RecruiterController {
         return  ResponseEntity.status(HttpStatus.CREATED).body(employee);
 
     }
-    @PutMapping("/employee/{id}")
+    @PutMapping("/employee/{empId}")
     public  ResponseEntity<Employee>updateEmployee(@PathVariable Long empId,@RequestBody EmployeeDTO employeeDTO)
     {
         Employee employee=recruiterService.updateEmployee(empId,employeeDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    @DeleteMapping("/employee/{id}")
+    @DeleteMapping("/employee/{empId}")
     public ResponseEntity<Employee> deleteMapping(@PathVariable Long empId)
     {
         boolean isDeleted=recruiterService.deleteEmployee(empId);
@@ -53,12 +53,12 @@ public class RecruiterController {
         return ResponseEntity.status(HttpStatus.CREATED).body(Newrecruiter);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{recruiterId}")
     public ResponseEntity<Recruiter> updateRecruiter(@PathVariable Long recruiterId,@RequestBody RecruiterDTO recruiterDTO){
         Recruiter recruiter=recruiterService.updateRecruiter(recruiterId,recruiterDTO);
         return ResponseEntity.ok(recruiter);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{recruiterId}")
     public ResponseEntity<Recruiter> deleteRecruiter(@PathVariable Long recruiterId){
         boolean isDeleted= recruiterService.deleteRecruiter(recruiterId);
         return ResponseEntity.noContent().build(); //Return 204 No Content if deleted successfully
