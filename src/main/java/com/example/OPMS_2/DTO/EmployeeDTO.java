@@ -2,10 +2,13 @@ package com.example.OPMS_2.DTO;
 
 import com.example.OPMS_2.Entity.Position;
 import com.example.OPMS_2.Entity.Recruiter;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 import java.util.List;
 
 public class EmployeeDTO {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long empId;
 
     String empName;

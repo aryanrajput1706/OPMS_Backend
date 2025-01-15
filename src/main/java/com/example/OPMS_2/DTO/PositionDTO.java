@@ -1,11 +1,14 @@
 package com.example.OPMS_2.DTO;
 
 import com.example.OPMS_2.Entity.Client;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class PositionDTO {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long positionId;
     private Long count;
     private Long filled;
