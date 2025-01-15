@@ -18,7 +18,7 @@ public class Position {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    @OneToMany(mappedBy = "position", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "position")
     private List<Recruiter> recruiters;
 
     @ManyToOne

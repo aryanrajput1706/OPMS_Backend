@@ -2,11 +2,14 @@ package com.example.OPMS_2.DTO;
 
 import com.example.OPMS_2.Entity.Position;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.OneToMany;
 
 import java.util.List;
 
 public class ClientDTO {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clientId;
     private String clientName;
     private String clientEmail;
