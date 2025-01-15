@@ -12,7 +12,9 @@ public class Employee {
     String empName;
     String email;
     String tech;
+
     Long  experience;
+
     String stage;
     String feedback;
 
@@ -24,13 +26,6 @@ public class Employee {
     @JoinColumn(name = "recruiter_id")
     private Recruiter recruiter;
 
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
 
     public Long getEmpId() {
         return empId;
@@ -42,6 +37,14 @@ public class Employee {
 
     public String getEmpName() {
         return empName;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public void setEmpName(String empName) {

@@ -1,8 +1,16 @@
 package com.example.OPMS_2.DTO;
 
+
+import com.example.OPMS_2.Entity.Employee;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.OneToMany;
+
 import java.util.List;
 
 public class RecruiterDTO {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long recruiterId;
     private String recruiterName;
     private String emailId;

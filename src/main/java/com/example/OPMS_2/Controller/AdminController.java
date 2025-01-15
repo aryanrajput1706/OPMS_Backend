@@ -4,13 +4,10 @@ import com.example.OPMS_2.DTO.ClientDTO;
 import com.example.OPMS_2.DTO.EmployeeDTO;
 import com.example.OPMS_2.DTO.RecruiterDTO;
 import com.example.OPMS_2.DTO.PositionDTO;
-import com.example.OPMS_2.Entity.Client;
-import com.example.OPMS_2.Entity.Position;
 import com.example.OPMS_2.Service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -137,7 +134,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/recruiter/{id}")
-    public String updateRecruiter(@PathVariable Long id){
+    public String deleteRecruiter(@PathVariable Long id){
         try{
             adminService.deleteRecruiter(id);
             return "Position Deleted Successfully";
