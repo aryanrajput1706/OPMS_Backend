@@ -2,10 +2,15 @@ package com.example.OPMS_2.DTO;
 
 import com.example.OPMS_2.Entity.Client;
 import com.example.OPMS_2.Entity.Recruiter;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
+import java.util.List;
+
 
 public class EmployeeDTO {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long empId;
 
     String empName;
