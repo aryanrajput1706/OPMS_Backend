@@ -8,24 +8,16 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long empId;
 
-    private String empName;
-    private String email;
-    private String tech;
-    private Long experience;
-    private String stage;
-    private String feedback;
+    String empName;
+    String email;
+    String tech;
+    Long experience;
+    String stage;
+    String feedback;
 
     @ManyToOne
     @JoinColumn(name = "position_id")
     private Position position;
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
 
     @ManyToOne
     @JoinColumn(name = "recruiter_id")
@@ -41,6 +33,14 @@ public class Employee {
 
     public String getEmpName() {
         return empName;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public void setEmpName(String empName) {
