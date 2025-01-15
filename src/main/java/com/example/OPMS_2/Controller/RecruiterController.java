@@ -1,18 +1,16 @@
 package com.example.OPMS_2.Controller;
 
 import com.example.OPMS_2.DTO.EmployeeDTO;
-import com.example.OPMS_2.DTO.PositionDTO;
 import com.example.OPMS_2.DTO.RecruiterDTO;
 import com.example.OPMS_2.Entity.Employee;
 import com.example.OPMS_2.Service.RecruiterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.OPMS_2.Entity.Recruiter;
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/recruiter")
 public class RecruiterController {
@@ -63,5 +61,16 @@ public class RecruiterController {
         boolean isDeleted= recruiterService.deleteRecruiter(recruiterId);
         return ResponseEntity.noContent().build(); //Return 204 No Content if deleted successfully
     }
-
+    @GetMapping("/employee/selected")
+    public List<EmployeeDTO> selectedEmployee()
+    {
+        return recruiterService.selectedEmployee();
+    }
+    @GetMapping("/employee/bench")
+    public List<EmployeeDTO> employeeOnBench()
+    {
+        return recruiterService.employeeOnBench();
+    }
+ //bech employees
+   //stage name == not scheduled
 }
