@@ -1,11 +1,14 @@
 package com.example.OPMS_2.DTO;
 
-import com.example.OPMS_2.Entity.Client;
+import com.example.OPMS_2.Entity.Position;
 import com.example.OPMS_2.Entity.Recruiter;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
+import java.util.List;
 
 public class EmployeeDTO {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long empId;
 
     String empName;
@@ -16,23 +19,6 @@ public class EmployeeDTO {
     String feedback;
     private Long recruiterId;
     private Long positionId;
-
-
-    public Long getRecruiterId() {
-        return recruiterId;
-    }
-
-    public void setRecruiterId(Long recruiterId) {
-        this.recruiterId = recruiterId;
-    }
-
-    public Long getPositionId() {
-        return positionId;
-    }
-
-    public void setPositionId(Long positionId) {
-        this.positionId = positionId;
-    }
 
     public Long getEmpId() {
         return empId;
@@ -90,5 +76,19 @@ public class EmployeeDTO {
         this.feedback = feedback;
     }
 
+    public Long getRecruiterId() {
+        return recruiterId;
+    }
 
+    public void setRecruiterId(Long recruiterId) {
+        this.recruiterId = recruiterId;
+    }
+
+    public Long getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(Long positionId) {
+        this.positionId = positionId;
+    }
 }
