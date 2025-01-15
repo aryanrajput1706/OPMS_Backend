@@ -291,8 +291,10 @@ public class AdminService {
         List<Long> employeeId = recruiterDTO.getEmployees();
         List<Employee> employeeList = new ArrayList<>();
 
-        for(Long empId : employeeId){
-            employeeList.add(employeeRepo.findById(empId).orElse(null));
+        if(employeeId!=null) {
+            for (Long empId : employeeId) {
+                employeeList.add(employeeRepo.findById(empId).orElse(null));
+            }
         }
 
         recruiter.setEmployees(employeeList);
@@ -308,17 +310,7 @@ public class AdminService {
         existingRecruiter.setRecruiterName(recruiterDTO.getRecruiterName());
         existingRecruiter.setContactNo(recruiterDTO.getContactNo());
         existingRecruiter.setEmailId(recruiterDTO.getEmailId());
-        existingRecruiter.setPassword(recruiterDTO.getPassword());
-        existingRecruiter.setRecruiterId(recruiterDTO.getRecruiterId());
 
-        List<Long> employeeId = recruiterDTO.getEmployees();
-        List<Employee> employeeList = new ArrayList<>();
-
-        for(Long empId : employeeId){
-            employeeList.add(employeeRepo.findById(empId).orElse(null));
-        }
-
-        existingRecruiter.setEmployees(employeeList);
 
         recruiterRepo.save(existingRecruiter);
 
@@ -342,9 +334,10 @@ public class AdminService {
         newClient.setClientPhone(clientDTO.getClientPhone());
 
         List<Position> positions = new ArrayList<>();
-
-        for(Long positionId : clientDTO.getPositions()){
-            positions.add(positionRepo.findById(positionId).orElse(null));
+        if(clientDTO.getPositions()!=null) {
+            for (Long positionId : clientDTO.getPositions()) {
+                positions.add(positionRepo.findById(positionId).orElse(null));
+            }
         }
 
         newClient.setPositions(positions);
@@ -357,19 +350,12 @@ public class AdminService {
     public ClientDTO updateClient(ClientDTO clientDTO) {
         Client existingClient = clientRepo.findById(clientDTO.getClientId()).orElse(new Client());
 
-        existingClient.setClientId(clientDTO.getClientId());
+
         existingClient.setClientName(clientDTO.getClientName());
         existingClient.setClientEmail(clientDTO.getClientEmail());
         existingClient.setClientAddress(clientDTO.getClientAddress());
         existingClient.setClientPhone(clientDTO.getClientPhone());
 
-        List<Position> positions = new ArrayList<>();
-
-        for(Long positionId : clientDTO.getPositions()){
-            positions.add(positionRepo.findById(positionId).orElse(null));
-        }
-
-        existingClient.setPositions(positions);
 
         clientRepo.save(existingClient);
 
