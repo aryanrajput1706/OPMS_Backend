@@ -1,5 +1,6 @@
 package com.example.OPMS_2.Entity;
 
+import com.example.OPMS_2.DTO.PositionDTO;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,7 +12,9 @@ public class Employee {
     String empName;
     String email;
     String tech;
-    Long experience;
+
+    Long  experience;
+
     String stage;
     String feedback;
 
@@ -22,6 +25,7 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "recruiter_id")
     private Recruiter recruiter;
+
 
     public Long getEmpId() {
         return empId;

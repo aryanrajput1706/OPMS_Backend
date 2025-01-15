@@ -1,5 +1,6 @@
 package com.example.OPMS_2.DTO;
 
+
 import com.example.OPMS_2.Entity.Employee;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.GeneratedValue;
