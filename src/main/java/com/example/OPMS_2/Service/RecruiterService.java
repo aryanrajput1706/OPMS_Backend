@@ -132,4 +132,42 @@ public class RecruiterService {
         }
         return false;
     }
+
+
+    public List<EmployeeDTO> selectedEmployee() {
+        List<Employee>selectedEmployeeList=employeeRepo.findByStage("selected");
+        List<EmployeeDTO>selectedEmployeeDto=new ArrayList<>();
+
+        for(Employee e:selectedEmployeeList)
+        {
+                EmployeeDTO employeeDTO=new EmployeeDTO();
+                employeeDTO.setEmpId(e.getEmpId());
+                employeeDTO.setEmail(e.getEmail());
+                employeeDTO.setTech(e.getTech());
+                employeeDTO.setStage(e.getStage());
+                employeeDTO.setFeedback(e.getFeedback());
+                employeeDTO.setEmpName(e.getEmpName());
+                employeeDTO.setExperience(e.getExperience());
+                selectedEmployeeDto.add(employeeDTO);
+        }
+        return selectedEmployeeDto;
+    }
+
+    public List<EmployeeDTO> employeeOnBench() {
+        List<Employee>benchEmployeeList=employeeRepo.findByStage("not-scheduled");
+        List<EmployeeDTO>benchEmployeeDto=new ArrayList<>();
+
+        for(Employee e:benchEmployeeList)
+        {
+            EmployeeDTO employeeDTO=new EmployeeDTO();
+            employeeDTO.setEmpId(e.getEmpId());
+            employeeDTO.setEmail(e.getEmail());
+            employeeDTO.setTech(e.getTech());
+            employeeDTO.setStage(e.getStage());
+            employeeDTO.setEmpName(e.getEmpName());
+            employeeDTO.setExperience(e.getExperience());
+            benchEmployeeDto.add(employeeDTO);
+        }
+        return benchEmployeeDto;
+    }
 }
