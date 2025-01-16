@@ -1,9 +1,6 @@
 package com.example.OPMS_2.Service;
 
-import com.example.OPMS_2.DTO.ClientDTO;
-import com.example.OPMS_2.DTO.EmployeeDTO;
-import com.example.OPMS_2.DTO.PositionDTO;
-import com.example.OPMS_2.DTO.RecruiterDTO;
+import com.example.OPMS_2.DTO.*;
 import com.example.OPMS_2.Entity.Client;
 import com.example.OPMS_2.Entity.Employee;
 import com.example.OPMS_2.Entity.Position;
@@ -25,11 +22,29 @@ public class RecruiterService {
     private ClientRepo clientRepo;
     @Autowired
     private EmployeeRepo employeeRepo;
-
     @Autowired
     private PositionRepo positionRepo;
 
-    private RecruiterDTO recruiterDTO;
+
+
+    public  List<RecruiterDashboardResponse> getAllEmployeeByRecruiter(Long recruiterId) {
+        List<Employee>allEmployee = employeeRepo.findAllByRecruiter_RecruiterId(recruiterId);
+        List<RecruiterDashboardResponse>allEmployeeResponse = new ArrayList<>();
+        for(Employee emp : allEmployee){
+            RecruiterDashboardResponse rdr = new RecruiterDashboardResponse();
+            rdr.setEmpId(emp.getEmpId());
+            rdr.setPositionId(emp.getPosition().getPositionId());
+            rdr.setClientName(emp.getPosition().getClient().getClientName());
+            rdr.setEmail(emp.getEmail());
+            rdr.setExperience(emp.getExperience());
+            rdr.setTech(emp.getTech());
+            rdr.setStage(emp.getStage());
+            rdr.setEmpName(emp.getEmpName());
+            allEmployeeResponse.add(rdr);
+
+        }
+        return allEmployeeResponse;
+    }
 
     public List<RecruiterDTO> getAllRecruiter() {
         List<Recruiter>allRecruiterList=recruiterRepo.findAll();

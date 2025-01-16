@@ -1,34 +1,29 @@
 package com.example.OPMS_2.DTO;
 
-import com.example.OPMS_2.Entity.Client;
-import com.example.OPMS_2.Entity.Recruiter;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-
-import java.util.List;
-
-
-public class EmployeeDTO {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class RecruiterDashboardResponse {
     private Long empId;
-
+    private String clientName;
+    private Long positionId;
     private String empName;
     private String email;
     private String tech;
     private Long experience;
     private String stage;
-    private String feedback;
-    private Long recruiterId;
-    private Long positionId;
 
-
-    public Long getRecruiterId() {
-        return recruiterId;
+    public Long getEmpId() {
+        return empId;
     }
 
-    public void setRecruiterId(Long recruiterId) {
-        this.recruiterId = recruiterId;
+    public void setEmpId(Long empId) {
+        this.empId = empId;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     public Long getPositionId() {
@@ -37,14 +32,6 @@ public class EmployeeDTO {
 
     public void setPositionId(Long positionId) {
         this.positionId = positionId;
-    }
-
-    public Long getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(Long empId) {
-        this.empId = empId;
     }
 
     public String getEmpName() {
@@ -86,14 +73,4 @@ public class EmployeeDTO {
     public void setStage(String stage) {
         this.stage = stage;
     }
-
-    public String getFeedback() {
-        return feedback;
-    }
-
-    public void setFeedback(String feedback) {
-        this.feedback = feedback;
-    }
-
-
 }
