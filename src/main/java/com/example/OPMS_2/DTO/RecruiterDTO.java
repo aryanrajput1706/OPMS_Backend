@@ -19,6 +19,7 @@ public class RecruiterDTO {
 
     private List<Long> employees;
 
+
     public Long getRecruiterId() {
         return recruiterId;
     }

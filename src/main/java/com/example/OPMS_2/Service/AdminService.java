@@ -37,7 +37,7 @@ public class AdminService {
         List<Position> positionList = positionRepo.findAll();
         List<PositionDTO> positionDTOList = new ArrayList<>();
 
-        for(Position position : positionList){
+        for (Position position : positionList) {
             PositionDTO positionDTO = new PositionDTO();
 
             positionDTO.setPositionId(position.getPositionId());
@@ -48,21 +48,28 @@ public class AdminService {
             positionDTO.setEndDate(position.getEndDate());
             positionDTO.setStartDate(position.getStartDate());
             positionDTO.setCost(position.getCost());
+            positionDTO.setClientName(position.getClient().getClientName());
             positionDTO.setClientId(position.getClient().getClientId());
 
-            List<Recruiter> recruiterList = position.getRecruiters().stream().toList();
+            // Map recruiters to both their IDs and names
+            List<Recruiter> recruiterList = position.getRecruiters();
             List<Long> recruiterIdList = new ArrayList<>();
+            List<String> recruiterNameList = new ArrayList<>();
 
-            for(Recruiter recruiter : recruiterList){
+            for (Recruiter recruiter : recruiterList) {
                 recruiterIdList.add(recruiter.getRecruiterId());
+                recruiterNameList.add(recruiter.getRecruiterName());
             }
 
+            // Set recruiter IDs and names in the DTO
             positionDTO.setRecruiters(recruiterIdList);
+            positionDTO.setRecruiterNames(recruiterNameList);
+
             positionDTOList.add(positionDTO);
         }
-
         return positionDTOList;
     }
+
 
 
     public PositionDTO addPosition(PositionDTO positionDTO) {
