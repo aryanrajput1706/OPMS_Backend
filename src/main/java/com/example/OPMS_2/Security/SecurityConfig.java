@@ -57,11 +57,12 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/recruiter/**").hasRole("RECRUITER")
+                        .requestMatchers("/auth/login").permitAll() // Public endpoint
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // Admin-only routes
+                        .requestMatchers("/recruiter/**").hasAnyRole("RECRUITER", "ADMIN") // Recruiter routes accessible by both recruiters and admins
                         .anyRequest().authenticated()
                 )
+
                 .addFilter(new JwtAuthenticationFilter(authManager(http), jwtService, customUserDetailsService))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .logout(logout -> logout
