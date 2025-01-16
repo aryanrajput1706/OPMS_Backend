@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface EmployeeRepo extends JpaRepository<Employee,Long> {
-    List<Employee> findByStage(String selected);
+    List<Employee> findByRecruiterRecruiterId(Long recruiterId);
 }

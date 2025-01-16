@@ -8,13 +8,10 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long empId;
-
     String empName;
     String email;
     String tech;
-
     Long  experience;
-
     String stage;
     String feedback;
 

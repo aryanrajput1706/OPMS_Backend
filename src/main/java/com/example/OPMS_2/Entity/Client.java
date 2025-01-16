@@ -15,7 +15,7 @@ public class Client {
     private String clientPhone;
     private String clientAddress;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client")
     private List<Position> positions;
 
     public Long getClientId() {
