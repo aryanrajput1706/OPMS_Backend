@@ -15,7 +15,7 @@ public class Recruiter {
     private Long contactNo;
     private String role;
 
-    @OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recruiter")
     private List<Employee> employees;
 
     @ManyToOne
