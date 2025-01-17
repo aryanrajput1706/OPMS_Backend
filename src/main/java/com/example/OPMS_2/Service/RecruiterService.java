@@ -12,6 +12,7 @@ import com.example.OPMS_2.Repository.ClientRepo;
 import com.example.OPMS_2.Repository.EmployeeRepo;
 import com.example.OPMS_2.Repository.PositionRepo;
 import com.example.OPMS_2.Repository.RecruiterRepo;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,11 @@ public class RecruiterService {
     private PositionRepo positionRepo;
 
     private RecruiterDTO recruiterDTO;
+
+    public Recruiter findByEmail(String emailId) {
+        return recruiterRepo.findByEmailId(emailId)
+                .orElseThrow(() -> new EntityNotFoundException("Recruiter not found with email: " + emailId));
+    }
 
     public List<EmployeeDTO> getAllEmployee() {
         List<Employee> allEmployeeList = employeeRepo.findAll();

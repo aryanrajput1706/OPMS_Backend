@@ -17,6 +17,7 @@ import com.example.OPMS_2.Entity.Recruiter;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/recruiter")
 public class RecruiterController {
@@ -29,6 +30,22 @@ public class RecruiterController {
 
     @Autowired
     private PositionRepo positionRepo;
+
+    @GetMapping("/email/{emailId}")
+    public ResponseEntity<RecruiterDTO> getRecruiterByEmail(@PathVariable String emailId) {
+        Recruiter recruiter = recruiterService.findByEmail(emailId);
+        if (recruiter == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        RecruiterDTO recruiterDTO = new RecruiterDTO();
+        recruiterDTO.setRecruiterId(recruiter.getRecruiterId());
+        recruiterDTO.setRecruiterName(recruiter.getRecruiterName());
+        recruiterDTO.setEmailId(recruiter.getEmailId());
+
+        return ResponseEntity.ok(recruiterDTO);
+    }
+
 
     @GetMapping("/{recruiterId}/employees")
     public ResponseEntity<List<EmployeeDTO>> getEmployeesByRecruiterId(@PathVariable Long recruiterId) {
