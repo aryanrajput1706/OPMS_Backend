@@ -18,7 +18,27 @@ public class PositionDTO {
     private LocalDate startDate;
     private LocalDate endDate;
     private List<Long> recruiters;
+    private List<String> recruiterNames;
+
+    public List<String> getRecruiterNames() {
+        return recruiterNames;
+    }
+
+    public void setRecruiterNames(List<String> recruiterNames) {
+        this.recruiterNames = recruiterNames;
+    }
+
     private Long clientId;
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    private String clientName;
 
     public Long getPositionId() {
         return positionId;

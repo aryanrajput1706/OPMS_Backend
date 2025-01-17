@@ -1,27 +1,31 @@
 package com.example.OPMS_2.DTO;
 
 import com.example.OPMS_2.Entity.Client;
-import com.example.OPMS_2.Entity.Recruiter;
-
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-import java.util.List;
-
-
 public class EmployeeDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long empId;
-
-    private String empName;
-    private String email;
-    private String tech;
-    private Long experience;
-    private String stage;
-    private String feedback;
+    Long empId;
+    String empName;
+    String email;
+    String tech;
+    Long experience;
+    String stage;
+    String feedback;
     private Long recruiterId;
     private Long positionId;
+    private String clientName;  // New field for client name
+    private String recruiterName;
 
+    public String getRecruiterName() {
+        return recruiterName;
+    }
+
+    public void setRecruiterName(String recruiterName) {
+        this.recruiterName = recruiterName;
+    }
+    // Getters and Setters
 
     public Long getRecruiterId() {
         return recruiterId;
@@ -95,5 +99,11 @@ public class EmployeeDTO {
         this.feedback = feedback;
     }
 
+    public String getClientName() {
+        return clientName;
+    }
 
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
 }
