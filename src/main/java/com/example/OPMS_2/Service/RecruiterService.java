@@ -1,19 +1,10 @@
 package com.example.OPMS_2.Service;
 
-import com.example.OPMS_2.DTO.ClientDTO;
-import com.example.OPMS_2.DTO.EmployeeDTO;
-import com.example.OPMS_2.DTO.PositionDTO;
-import com.example.OPMS_2.DTO.RecruiterDTO;
-import com.example.OPMS_2.Entity.Client;
-import com.example.OPMS_2.Entity.Employee;
-import com.example.OPMS_2.Entity.Position;
-import com.example.OPMS_2.Entity.Recruiter;
-import com.example.OPMS_2.Repository.ClientRepo;
-import com.example.OPMS_2.Repository.EmployeeRepo;
-import com.example.OPMS_2.Repository.PositionRepo;
-import com.example.OPMS_2.Repository.RecruiterRepo;
-import jakarta.persistence.EntityNotFoundException;
+import com.example.OPMS_2.DTO.*;
+import com.example.OPMS_2.Entity.*;
+import com.example.OPMS_2.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,16 +18,11 @@ public class RecruiterService {
     private ClientRepo clientRepo;
     @Autowired
     private EmployeeRepo employeeRepo;
-
     @Autowired
     private PositionRepo positionRepo;
+    @Autowired
+    private StageRepo stageRepo;
 
-    private RecruiterDTO recruiterDTO;
-
-    public Recruiter findByEmail(String emailId) {
-        return recruiterRepo.findByEmailId(emailId)
-                .orElseThrow(() -> new EntityNotFoundException("Recruiter not found with email: " + emailId));
-    }
 
     public List<EmployeeDTO> getAllEmployee() {
         List<Employee> allEmployeeList = employeeRepo.findAll();
@@ -150,4 +136,92 @@ public class RecruiterService {
         return employeeDTOs;
     }
 
+    public List<StageDTO> getStagesByEmpId(Long empId) {
+        List<Stage>allStage = stageRepo.findByEmployeeEmpId(empId);
+        List<StageDTO>allStageDTO = new ArrayList<>();
+        for(Stage stg : allStage){
+            StageDTO sdto = new StageDTO();
+            sdto.setEmpId(stg.getEmployee().getEmpId());
+            sdto.setStageId(stg.getStageId());
+            sdto.setStageName(stg.getStageName());
+            sdto.setFeedback(stg.getFeedback());
+            sdto.setStatus(stg.getStatus());
+            allStageDTO.add(sdto);
+        }
+        return allStageDTO;
+    }
+
+    public StageDTO addStageDetail(StageDTO stageDTO) {
+        Employee employee = employeeRepo.findById(stageDTO.getEmpId()).orElse(null);
+        Stage stage = new Stage();
+        stage.setEmployee(employee);
+        stage.setStageName(stageDTO.getStageName());
+        stage.setFeedback(stageDTO.getFeedback());
+        stage.setStatus(stageDTO.getStatus());
+        stage.setStageId(stageDTO.getStageId());
+        stageRepo.save(stage);
+        return stageDTO;
+    }
+
+    public StageDTO updateStageDetail(StageDTO stageDTO){
+        Stage existingStage = stageRepo.findById(stageDTO.getStageId()).orElse(new Stage());
+        existingStage.setStageName(stageDTO.getStageName());
+        existingStage.setFeedback(stageDTO.getFeedback());
+        existingStage.setStatus(stageDTO.getStatus());
+
+        stageRepo.save(existingStage);
+        return stageDTO;
+    }
+
+    public void deleteStageDetail(Long stageId){
+        Stage existingStage = stageRepo.findById(stageId).orElse(null);
+        if(existingStage!=null){
+            stageRepo.delete(existingStage);
+        }
+    }
+
+    public EmployeeDTO addEmployeeByRecruiterId(EmployeeDTO employeeDTO) {
+        Recruiter recruiter = recruiterRepo.findById(employeeDTO.getRecruiterId()).orElse(null);
+        Position position = positionRepo.findById(employeeDTO.getPositionId()).orElse(null);
+
+        Employee employee = new Employee();
+        if(recruiter!=null){
+            employee.setRecruiter(recruiter);
+        }
+        if(position!=null){
+            employee.setPosition(position);
+        }
+        employee.setEmail(employeeDTO.getEmail());
+        employee.setTech(employeeDTO.getTech());
+        employee.setEmpId(employeeDTO.getEmpId());
+        employee.setEmpName(employeeDTO.getEmpName());
+        employee.setExperience(employeeDTO.getExperience());
+
+        employeeRepo.save(employee);
+        return employeeDTO;
+    }
+
+    public EmployeeDTO updateEmployeeByRecruiter(EmployeeDTO employeeDTO) {
+        Employee existingEmployee = employeeRepo.findById(employeeDTO.getEmpId()).orElse(new Employee());
+        Position position = positionRepo.findById(employeeDTO.getPositionId()).orElse(null);
+        if(position!=null){
+            existingEmployee.setPosition(position);
+        }
+        existingEmployee.setExperience(employeeDTO.getExperience());
+        existingEmployee.setEmpName(employeeDTO.getEmpName());
+        existingEmployee.setTech(employeeDTO.getTech());
+        existingEmployee.setEmail(employeeDTO.getEmail());
+         employeeRepo.save(existingEmployee);
+        return employeeDTO;
+
+    }
+
+    public void deleteEmployeeByRecruiter(Long empId){
+        Employee existingEmployee = employeeRepo.findById(empId).orElse(null);
+        if(existingEmployee!=null){
+            employeeRepo.delete(existingEmployee);
+
+        }
+
+    }
 }

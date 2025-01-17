@@ -3,10 +3,13 @@ package com.example.OPMS_2.Controller;
 import com.example.OPMS_2.DTO.EmployeeDTO;
 import com.example.OPMS_2.DTO.PositionDTO;
 import com.example.OPMS_2.DTO.RecruiterDTO;
+import com.example.OPMS_2.DTO.StageDTO;
 import com.example.OPMS_2.Entity.Employee;
 import com.example.OPMS_2.Entity.Position;
+import com.example.OPMS_2.Entity.Stage;
 import com.example.OPMS_2.Repository.EmployeeRepo;
 import com.example.OPMS_2.Repository.PositionRepo;
+import com.example.OPMS_2.Repository.StageRepo;
 import com.example.OPMS_2.Service.RecruiterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -59,34 +62,41 @@ public class RecruiterController {
         return ResponseEntity.ok(employees);
     }
 
-    @GetMapping("/employee")
-    public List<EmployeeDTO> getAllEmployee() {
-        List<EmployeeDTO> employeeDTOs = recruiterService.getAllEmployee();
 
-        // Populate client name for each employee
-        for (EmployeeDTO employeeDTO : employeeDTOs) {
-            setClientNameForEmployee(employeeDTO);
-        }
-
-        return employeeDTOs;
+    @PostMapping("/{recruiterId}/employee")
+    public EmployeeDTO addEmployeeByRecruiterId(@RequestBody EmployeeDTO employeeDTO){
+        return recruiterService.addEmployeeByRecruiterId(employeeDTO);
     }
 
-    @PostMapping("/{recruiterId}/employees")
-    public ResponseEntity<EmployeeDTO> addNewPosition(@PathVariable Long recruiterId, @RequestBody EmployeeDTO employeeDTO) {
-        EmployeeDTO employee = recruiterService.addEmployee(employeeDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(employee);
+    @PutMapping("/employee/update")
+    public EmployeeDTO updateEmployeeByRecruiter(@RequestBody EmployeeDTO employeeDTO){
+        return recruiterService.updateEmployeeByRecruiter(employeeDTO);
     }
 
-    @PutMapping("/employee/{empid}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable Long empId, @RequestBody EmployeeDTO employeeDTO) {
-        Employee employee = recruiterService.updateEmployee(empId, employeeDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    @DeleteMapping("/employee/{empId}")
+    public void deleteEmployeeByRecruiter(@PathVariable Long empId){
+         recruiterService.deleteEmployeeByRecruiter(empId);
     }
 
-    @DeleteMapping("/employee/{empid}")
-    public ResponseEntity<Employee> deleteMapping(@PathVariable Long empId) {
-        boolean isDeleted = recruiterService.deleteEmployee(empId);
-        return ResponseEntity.noContent().build();
+
+    @GetMapping("/stage/{empId}")
+    public List<StageDTO> getStagesByEmpId(@PathVariable Long empId){
+         return recruiterService.getStagesByEmpId(empId);
+    }
+
+    @PostMapping("/stage")
+    public StageDTO addStageDetail(@RequestBody StageDTO stageDTO){
+        return recruiterService.addStageDetail(stageDTO);
+    }
+
+    @PutMapping("/stage")
+    public StageDTO updateStageDetail(@RequestBody StageDTO stageDTO){
+        return recruiterService.updateStageDetail(stageDTO);
+    }
+
+    @DeleteMapping("/stage/{stageId}")
+    public void deleteStageDetail(@PathVariable Long stageId){
+         recruiterService.deleteStageDetail(stageId);
     }
 
     private void setClientNameForEmployee(EmployeeDTO employeeDTO) {
