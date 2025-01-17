@@ -4,6 +4,7 @@ import com.example.OPMS_2.Entity.Client;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
+
 public class EmployeeDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long empId;
