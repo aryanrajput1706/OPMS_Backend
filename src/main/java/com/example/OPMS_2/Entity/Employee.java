@@ -95,4 +95,14 @@ public class Employee {
     public void setRecruiter(Recruiter recruiter) {
         this.recruiter = recruiter;
     }
+
+    private String resumeUrl;
+
+    public String getResumeUrl() {
+        return resumeUrl;
+    }
+
+    public void setResumeUrl(String resumeUrl) {
+        this.resumeUrl = resumeUrl;
+    }
 }
