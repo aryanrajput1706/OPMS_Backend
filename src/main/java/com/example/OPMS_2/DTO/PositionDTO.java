@@ -17,16 +17,9 @@ public class PositionDTO {
     private Long experience;
     private LocalDate startDate;
     private LocalDate endDate;
-    private List<Long> recruiters;
-    private List<String> recruiterNames;
+    private Long recruiterId;
+    private String recruiterName;
 
-    public List<String> getRecruiterNames() {
-        return recruiterNames;
-    }
-
-    public void setRecruiterNames(List<String> recruiterNames) {
-        this.recruiterNames = recruiterNames;
-    }
 
     private Long clientId;
 
@@ -104,12 +97,20 @@ public class PositionDTO {
         this.endDate = endDate;
     }
 
-    public List<Long> getRecruiters() {
-        return recruiters;
+    public Long getRecruiterId() {
+        return recruiterId;
     }
 
-    public void setRecruiters(List<Long> recruiters) {
-        this.recruiters = recruiters;
+    public void setRecruiterId(Long recruiterId) {
+        this.recruiterId = recruiterId;
+    }
+
+    public String getRecruiterName() {
+        return recruiterName;
+    }
+
+    public void setRecruiterName(String recruiterName) {
+        this.recruiterName = recruiterName;
     }
 
     public Long getClientId() {

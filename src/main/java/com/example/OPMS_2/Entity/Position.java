@@ -18,8 +18,9 @@ public class Position {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    @OneToMany(mappedBy = "position")
-    private List<Recruiter> recruiters;
+    @ManyToOne
+    @JoinColumn(name = "recruiter_id")
+    private Recruiter recruiter;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -89,12 +90,12 @@ public class Position {
         this.endDate = endDate;
     }
 
-    public List<Recruiter> getRecruiters() {
-        return recruiters;
+    public Recruiter getRecruiter() {
+        return recruiter;
     }
 
-    public void setRecruiters(List<Recruiter> recruiters) {
-        this.recruiters = recruiters;
+    public void setRecruiter(Recruiter recruiter) {
+        this.recruiter = recruiter;
     }
 
     public Client getClient() {
