@@ -15,12 +15,9 @@ public class Recruiter {
     private Long contactNo;
     private String role;
 
-    @OneToMany(mappedBy = "recruiter")
+    @OneToMany(mappedBy = "recruiter",cascade = CascadeType.ALL)
     private List<Employee> employees;
 
-    @ManyToOne
-    @JoinColumn(name = "position_id")
-    private Position position;
 
     public Long getRecruiterId() {
         return recruiterId;
@@ -77,4 +74,6 @@ public class Recruiter {
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
+
+
 }

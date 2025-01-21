@@ -12,6 +12,7 @@ import com.example.OPMS_2.Repository.ClientRepo;
 import com.example.OPMS_2.Repository.EmployeeRepo;
 import com.example.OPMS_2.Repository.PositionRepo;
 import com.example.OPMS_2.Repository.RecruiterRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,19 +52,9 @@ public class AdminService {
             positionDTO.setClientName(position.getClient().getClientName());
             positionDTO.setClientId(position.getClient().getClientId());
 
-            // Map recruiters to both their IDs and names
-            List<Recruiter> recruiterList = position.getRecruiters();
-            List<Long> recruiterIdList = new ArrayList<>();
-            List<String> recruiterNameList = new ArrayList<>();
 
-            for (Recruiter recruiter : recruiterList) {
-                recruiterIdList.add(recruiter.getRecruiterId());
-                recruiterNameList.add(recruiter.getRecruiterName());
-            }
-
-            // Set recruiter IDs and names in the DTO
-            positionDTO.setRecruiters(recruiterIdList);
-            positionDTO.setRecruiterNames(recruiterNameList);
+            positionDTO.setRecruiterId(position.getRecruiter().getRecruiterId());
+            positionDTO.setRecruiterName(position.getRecruiter().getRecruiterName());
 
             positionDTOList.add(positionDTO);
         }
@@ -74,10 +65,11 @@ public class AdminService {
 
     public PositionDTO addPosition(PositionDTO positionDTO) {
         Position newPosition = new Position();
-        List<Recruiter> recruiters = new ArrayList<>();
+        Recruiter recruiter = recruiterRepo.findById(positionDTO.getRecruiterId()).orElse(null);
         Client client = clientRepo.findById(positionDTO.getClientId()).orElse(null);
 
         newPosition.setClient(client);
+        newPosition.setRecruiter(recruiter);
         newPosition.setTech(positionDTO.getTech());
         newPosition.setExperience(positionDTO.getExperience());
         newPosition.setCost(positionDTO.getCost());
@@ -85,36 +77,26 @@ public class AdminService {
         newPosition.setFilled(positionDTO.getFilled());
         newPosition.setStartDate(positionDTO.getStartDate());
         newPosition.setEndDate(positionDTO.getEndDate());
-
-        for(Long id : positionDTO.getRecruiters()){
-            Recruiter assignedRecruiter = recruiterRepo.findById(id).orElse(null);
-            recruiters.add(assignedRecruiter);
-        }
-
-        newPosition.setRecruiters(recruiters);
         positionRepo.save(newPosition);
         return positionDTO;
     }
 
+    @Transactional
     public PositionDTO updatePosition(PositionDTO positionDTO) {
         Position existingPosition = positionRepo.findById(positionDTO.getPositionId()).orElse(new Position());
-        List<Recruiter> recruiters = new ArrayList<>();
+        Recruiter recruiter = recruiterRepo.findById(positionDTO.getRecruiterId()).orElse(null);
         Client client = clientRepo.findById(positionDTO.getClientId()).orElse(null);
 
         existingPosition.setClient(client);
+        existingPosition.setRecruiter(recruiter);
         existingPosition.setTech(positionDTO.getTech());
         existingPosition.setExperience(positionDTO.getExperience());
+        existingPosition.setCost(positionDTO.getCost());
         existingPosition.setCount(positionDTO.getCount());
         existingPosition.setFilled(positionDTO.getFilled());
         existingPosition.setStartDate(positionDTO.getStartDate());
         existingPosition.setEndDate(positionDTO.getEndDate());
 
-        for(Long id : positionDTO.getRecruiters()){
-            Recruiter assignedRecruiter = recruiterRepo.findById(id).orElse(null);
-            recruiters.add(assignedRecruiter);
-        }
-
-        existingPosition.setRecruiters(recruiters);
 
         positionRepo.save(existingPosition);
 
